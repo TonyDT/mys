@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}登录{% endblock %}
+{% block css %}<link href="{% static 'css/login.css' %}" rel="stylesheet"/>{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="col-md-4 col-md-offset-4">
+          <form class='form-login' action="/login/" method="post">
+
+               {% if message %}
+                    <div class="alert alert-warning alert-dismissible" role="alert">{{ message }}
+                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+               {% endif %}
+                {# 用于处理csrf安全机制；POSt必须加 #}
+               {% csrf_token %}
+
+              <h2 class="text-center">欢迎登录</h2>
+                {# 用来替换后面注释的使用forms #}
+{#              {{ login_form }}#}
+              <div class="form-group">
+                {{ login_form.username.label_tag }}
+                {{ login_form.username}}
+              </div>
+              <div class="form-group">
+                {{ login_form.password.label_tag }}
+                {{ login_form.password }}
+              </div>
+
+{#              <div class="form-group">#}
+{#                <label for="id_username">用户名：</label>#}
+{#                <input type="text" name='username' class="form-control" id="id_username" placeholder="请输入您的用户名" autofocus required>#}
+{#              </div>#}
+{#              <div class="form-group">#}
+{#                <label for="id_password">密码：</label>#}
+{#                <input type="password" name='password' class="form-control" id="id_password" placeholder="请输入您的密码" required>#}
+{#              </div>#}
+              <button type="reset" class="btn btn-default pull-left">重置</button>
+              <button type="submit" class="btn btn-primary pull-right">提交</button>
+          </form>
+        </div>
+    </div> <!-- /container -->
+{% endblock %}
